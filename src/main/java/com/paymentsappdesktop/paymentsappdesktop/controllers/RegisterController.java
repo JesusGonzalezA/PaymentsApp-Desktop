@@ -32,6 +32,7 @@ public class RegisterController implements Initializable {
             Dialog<String> dialog = DialogComponentHelper.createErrorDialog("Error", "Username/Password should not be empty");
             dialog.showAndWait();
         } else {
+            
             // Todo register
             goToLogin();
         }

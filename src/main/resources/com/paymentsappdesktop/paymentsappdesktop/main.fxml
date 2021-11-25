@@ -181,10 +181,10 @@
                   </Label>
                   <TableView fx:id="paymentsTable">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Id" />
-                      <TableColumn minWidth="96.11514282226562" prefWidth="96.11514282226562" text="Amount" />
-                        <TableColumn prefWidth="226.18002319335938" text="Description" />
-                        <TableColumn prefWidth="127.8199462890625" text="User" />
+                      <TableColumn fx:id="paymentId" prefWidth="75.0" text="Id" />
+                      <TableColumn fx:id="paymentAmount" minWidth="96.11514282226562" prefWidth="96.11514282226562" text="Amount" />
+                        <TableColumn fx:id="paymentDescription" prefWidth="226.18002319335938" text="Description" />
+                        <TableColumn fx:id="paymentUser" prefWidth="127.8199462890625" text="User" />
                     </columns>
                   </TableView>
                </children>

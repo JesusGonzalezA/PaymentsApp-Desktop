@@ -1,12 +1,17 @@
 package com.paymentsappdesktop.paymentsappdesktop.controllers;
 
 import com.paymentsappdesktop.paymentsappdesktop.components.DialogComponentHelper;
+import com.paymentsappdesktop.paymentsappdesktop.models.Payment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,8 +26,18 @@ public class MainController implements Initializable {
     @FXML
     private TextField idDelete;
     //Get
+    // add your data here from any source
+    private ObservableList<Payment> payments = FXCollections.observableArrayList();
     @FXML
-    private TableView paymentsTable;
+    private TableView<Payment> paymentsTable;
+    @FXML
+    public TableColumn<Payment, Number> paymentId;
+    @FXML
+    public TableColumn<Payment, String> paymentDescription;
+    @FXML
+    public TableColumn<Payment, String> paymentUser;
+    @FXML
+    public TableColumn<Payment, Number> paymentAmount;
     //Edit
     @FXML
     private TextField idEdit;
@@ -38,7 +53,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        paymentId.setCellValueFactory(cellData -> cellData.getValue().getPaymentId());
+        paymentAmount.setCellValueFactory(cellData -> cellData.getValue().getPaymentAmount());
+        paymentDescription.setCellValueFactory(cellData -> cellData.getValue().getPaymentDescription());
+        paymentUser.setCellValueFactory(cellData -> cellData.getValue().getPaymentUser());
 
+        // TODO get payments
+        paymentsTable.setItems(payments);
     }
 
     public void onChange(ActionEvent actionEvent){
