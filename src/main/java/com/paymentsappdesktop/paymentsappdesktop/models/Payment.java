@@ -1,49 +1,36 @@
 package com.paymentsappdesktop.paymentsappdesktop.models;
 
-import javafx.beans.property.*;
-
 public class Payment {
-    private IntegerProperty paymentId;
-    private DoubleProperty paymentAmount;
-    private StringProperty paymentDescription;
-    private StringProperty paymentUser;
+    public int id;
+    public String description;
+    public double amount;
+    public User user;
 
-    public Payment(Integer paymentId, Double paymentAmount, String paymentDescription, String paymentUser) {
-        this.paymentId = new SimpleIntegerProperty(paymentId);
-        this.paymentAmount = new SimpleDoubleProperty(paymentAmount);
-        this.paymentDescription = new SimpleStringProperty(paymentDescription);
-        this.paymentUser = new SimpleStringProperty(paymentUser);
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public DoubleProperty getPaymentAmount() {
-        return paymentAmount;
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setPaymentAmount(double paymentAmount) {
-        this.paymentAmount = new SimpleDoubleProperty(paymentAmount);
+    public double getAmount() {
+        return amount;
+    }
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public IntegerProperty getPaymentId() {
-        return paymentId;
+    public User getUser() {
+        return user;
     }
-
-    public void setPaymentId(int paymentId) {
-        this.paymentId = new SimpleIntegerProperty(paymentId);
-    }
-
-    public StringProperty getPaymentUser() {
-        return paymentUser;
-    }
-
-    public void setPaymentUser(String paymentUser) {
-        this.paymentUser = new SimpleStringProperty(paymentUser);
-    }
-
-    public StringProperty getPaymentDescription() {
-        return paymentDescription;
-    }
-
-    public void setPaymentDescription(String paymentDescription) {
-        this.paymentDescription = new SimpleStringProperty(paymentDescription);
+    public void setUser(User user) {
+        this.user = user;
     }
 }

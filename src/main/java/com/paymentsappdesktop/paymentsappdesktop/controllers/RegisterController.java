@@ -11,6 +11,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,9 +33,26 @@ public class RegisterController implements Initializable {
             Dialog<String> dialog = DialogComponentHelper.createErrorDialog("Error", "Username/Password should not be empty");
             dialog.showAndWait();
         } else {
-            
-            // Todo register
-            goToLogin();
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n " +
+                    "\"username\": \"" + username + "\"," +
+                    "\n\"password\": \"" + password + "\"\n}"
+            );
+            Request request = new Request.Builder()
+                    .url("http://localhost:8080/user")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = client.newCall(request).execute();
+
+            if ( response.code() == 201 ) {
+                goToLogin();
+            } else if ( response.code() == 409 ) {
+                Dialog<String> dialog = DialogComponentHelper.createErrorDialog("Error", "The user already exists");
+                dialog.showAndWait();
+            }
         }
     }
 

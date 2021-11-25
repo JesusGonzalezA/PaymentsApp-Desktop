@@ -1,5 +1,6 @@
 package com.paymentsappdesktop.paymentsappdesktop.controllers;
 
+import com.paymentsappdesktop.paymentsappdesktop.Credentials;
 import com.paymentsappdesktop.paymentsappdesktop.PaymentsApp;
 import com.paymentsappdesktop.paymentsappdesktop.components.DialogComponentHelper;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,8 +34,26 @@ public class LoginController implements Initializable {
             Dialog<String> dialog = DialogComponentHelper.createErrorDialog("Error", "Username/Password should not be empty");
             dialog.showAndWait();
         } else {
-            // Todo login
-            goTo("main.fxml");
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("text/plain");
+            RequestBody body = RequestBody.create(mediaType, "");
+            Request request = new Request.Builder()
+                    .url("http://localhost:8080/user/login?username=" + username + "&password=" + password)
+                    .method("PATCH", body)
+                    .build();
+            Response response = client.newCall(request).execute();
+
+            if ( response.code() == 200 ) {
+                Credentials.password = password;
+                Credentials.username = username;
+                goTo("main.fxml");
+            } else {
+                System.out.println(response);
+                Dialog<String> dialog = DialogComponentHelper.createErrorDialog("Error", "Bad credentials");
+                dialog.showAndWait();
+            }
+
         }
     }
 
